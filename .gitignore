@@ -1,0 +1,14 @@
+# Python Edge
+__pycache__/
+*.pkl
+*.csv
+.venv/
+env/
+
+# Node/React Cloud & Client
+node_modules/
+.env
+
+# OS Files
+.DS_Store
+Thumbs.db
