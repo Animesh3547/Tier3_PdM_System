@@ -15,7 +15,7 @@ Bearing Kinematics, Isolation Forest
 
 Status:
 Architecture Complete | Dashboard Complete |
-Validation Pending
+Validation Pending | Cloud Integration pending
 
 ## Overview
 
