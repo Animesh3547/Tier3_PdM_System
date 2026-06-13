@@ -171,25 +171,25 @@ The dashboard is designed to provide engineers with a consolidated view of machi
 
 Displays machine status, health metrics, and monitoring summary.
 
-![Dashboard Overview](images/dashboard_overview.jpg)
+![Dashboard Overview](images/dashboard_overview.png)
 
 #### FFT Analysis
 
 Visualizes the frequency spectrum of vibration signals using Hann-windowed FFT processing.
 
-![FFT Analysis](images/fft_analysis.jpg)
+![FFT Analysis](images/fft_analysis.png)
 
 #### Envelope Spectrum Analysis
 
 Visualizes envelope-demodulated vibration spectra for bearing fault investigation.
 
-![Envelope Analysis](images/envelope_analysis.jpg)
+![Envelope Analysis](images/envelope_analysis.png)
 
 #### Trend Monitoring
 
 Displays the evolution of condition indicators and health metrics over time.
 
-![Trend Monitoring](images/trend_monitoring.jpg)
+![Trend Monitoring](images/trend_monitoring.png)
 
 ## Results
 
