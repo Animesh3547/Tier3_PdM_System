@@ -2,36 +2,37 @@
 import numpy as np
 import os
 import sys
+import json
 from anomaly_funnel import ScadaAnomalyFunnel
 
-def capture_healthy_baseline():
-    """
-    Simulates capturing live data from the DAQ system.
-    Currently uses synthetic normal data for local testing.
-    """
-    print("[SYSTEM] Simulating DAQ ingestion of 50 healthy data blocks...")
-    healthy_signals = [np.random.normal(0, 1.0, 10000) for _ in range(50)]
-    return healthy_signals
+def capture_healthy_baseline(sample_rate):
+    print(f"[SYSTEM] Simulating DAQ ingestion of 50 blocks at {sample_rate} Hz...")
+    return [np.random.normal(0, 1.0, sample_rate) for _ in range(50)]
 
 if __name__ == "__main__":
     print("=== TIER 3 HITL BASELINE CALIBRATION ===")
-    print("WARNING: Executing this will overwrite the machine's statistical baseline.")
     
-    # The True Human-In-The-Loop Lock
+    # 1. Load Configuration
+    try:
+        with open('config.json') as f: config = json.load(f)
+    except FileNotFoundError:
+        print("[ERROR] config.json missing. Cannot establish machine parameters.")
+        sys.exit(1)
+
     confirmation = input("Are you physically present at the machine and verifying it is healthy? (Type YES to proceed): ")
-    
     if confirmation.strip() != "YES":
-        print("[ABORT] Calibration cancelled. System state unchanged.")
+        print("[ABORT] Calibration cancelled.")
         sys.exit(0)
         
-    print("[SYSTEM] Engineer authorization confirmed via terminal.")
-    
     os.makedirs("models", exist_ok=True)
-    funnel = ScadaAnomalyFunnel(model_path="models/iforest_baseline.pkl")
     
-    verified_data = capture_healthy_baseline()
+    # 2. Initialize Funnel with Config Parameters
+    funnel = ScadaAnomalyFunnel(
+        sample_rate=config['sample_rate'],
+        rpm=config['rpm'],
+        model_path="models/iforest_baseline.pkl"
+    )
+    
+    verified_data = capture_healthy_baseline(config['sample_rate'])
     funnel.authorize_manual_training(verified_data)
-    
-    print("[SUCCESS] Machine baseline locked. Safe to begin continuous monitoring.")
-
-# ONE-LINE SUMMARY: The script now strictly pauses execution until an engineer types an explicit confirmation, locking the training gate.
+    print("[SUCCESS] Machine baseline locked.")

@@ -1,0 +1,8 @@
+{
+  "machine_id": "PUMP_04",
+  "sample_rate": 10000,
+  "resonance_band": [2000, 4000],
+  "persistence_threshold": 3,
+  "rpm": 1800,
+  "bearing_geom": {"n_rollers": 8, "roller_diameter": 10, "pitch_diameter": 40, "contact_angle": 0}
+}
